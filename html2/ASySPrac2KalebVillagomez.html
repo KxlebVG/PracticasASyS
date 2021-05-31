@@ -1,0 +1,412 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 2: Se&ntilde;ales en tiempo discreto</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-30"><meta name="DC.source" content="ASySPrac2KalebVillagomez.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 2: Se&ntilde;ales en tiempo discreto</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Integrantes</a></li><li><a href="#2">Objetivos</a></li><li><a href="#3">Introducci&oacute;n</a></li><li><a href="#4">Secci&oacute;n 1</a></li><li><a href="#9">Secci&oacute;n 2</a></li><li><a href="#16">Secci&oacute;n 3</a></li><li><a href="#19">Secci&oacute;n 4</a></li><li><a href="#24">Seccion 5</a></li></ul></div><h2 id="1">Integrantes</h2><div><ul><li>Alejandro Enrrique L&oacute;pez Ahumada</li><li>Alvaro Catal&aacute;n Escobar</li><li>Carlos Enrrique Mej&iacute;a L&oacute;pez</li><li>Kaleb Villag&oacute;mez Galv&aacute;n</li></ul></div><h2 id="2">Objetivos</h2><div><ul><li>Manipulaci&oacute;n b&aacute;sica de MATLAB</li><li>Gr&aacute;ficas de se&ntilde;ales reales y complejas discretas</li><li>Transformaci&oacute;n de se&ntilde;ales discretas (escalamientos y traslaciones)</li></ul></div><h2 id="3">Introducci&oacute;n</h2><h2 id="4">Secci&oacute;n 1</h2><p>Considere la funci&oacute;n en tiempo discreto</p><pre class="codeinput">f= @(n) exp(-n/5).*cos(pi*n/5).*(n&gt;=0);
+</pre><pre class="codeinput">n=(-10:10);
+plot(n,f(n));
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_01.png" alt=""> <p>Pasando la funci&oacute;n a tiempo discreto se usa el comando "stem"</p><pre class="codeinput">n=(-10:10)';
+stem(n,f(n),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f[n]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_02.png" alt=""> <p>Si bien la funci&oacute;n funciona correctamente para una operaci&oacute;n de reducci&oacute;n de muestreo como f[2n]</p><pre class="codeinput">stem(n,f(2*n),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f[2*n]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_03.png" alt=""> <p>Se modifica la funci&oacute;n an&oacute;nima para que tambien acomode correctamente las operacci&oacute;nes de muestreo.</p><pre class="codeinput">f= @(n) exp(-n/10).*cos(pi*n/10).*(n&gt;=0).*(mod(n,2)==0);
+f(n)
+stem(n,f(n),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f[n/2]'</span>);
+<span class="comment">%</span>
+</pre><pre class="codeoutput">
+ans =
+
+         0
+         0
+         0
+         0
+         0
+         0
+         0
+         0
+         0
+         0
+    1.0000
+         0
+    0.6624
+         0
+    0.2071
+         0
+   -0.1696
+         0
+   -0.3635
+         0
+   -0.3679
+
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_04.png" alt=""> <h2 id="9">Secci&oacute;n 2</h2><p>Se grafican las siguientes se&ntilde;ales a partir de la se&ntilde;al que se muestra a a continuaci&oacute;n.</p><pre class="codeinput">n= -15:15;
+x= @(n) n .* (heaviside(n+3.5)-heaviside(n-3.5));
+stem(n,x(n),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'x[n]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_05.png" alt=""> <p>a) x[-n]</p><pre class="codeinput">stem(n,x(-n),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'x[-n]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_06.png" alt=""> <p>b)x[n+6]</p><pre class="codeinput">stem(n,x(n+6),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'x[n+6]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_07.png" alt=""> <p>c) x[n-6]</p><pre class="codeinput">stem(n,x(n-6),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'x[n-6]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_08.png" alt=""> <p>d) x[3n]</p><pre class="codeinput">x= @(n) n .* (heaviside(n+3.5)-heaviside(n-3.5)).*(mod(n,3)==0);
+stem(n,x(n),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'x[3n]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_09.png" alt=""> <p>e) x[n/3]</p><pre class="codeinput">x= @(n) n/3 .* (heaviside((n/3)+3.5)-heaviside((n/3)-3.5)).*(mod(n,3)==0);
+stem(n,x(n),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'x[n/3]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_10.png" alt=""> <p>f) x[3-n]</p><pre class="codeinput">x= @(n) n .* (heaviside(n+3.5)-heaviside(n-3.5));
+stem(n,x(3-n),<span class="string">'k'</span>);
+xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'x[3-n]'</span>);
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_11.png" alt=""> <h2 id="16">Secci&oacute;n 3</h2><p>Suppose a vector x exists in the MATLAB workspace, corresponding to a finite-duration DT signal x[n]</p><p>(a) Write a MATLAB function that, when passed vector x, computes and returns Ex, the energy of x[n].</p><p>(b) Write a MATLAB function that, when passed vector x, computes and returns Px, the power of x[n]. Assume that x[n] is periodic and that vector x contains data for an integer number of periods of x[n].</p><p><b>A continuaci&oacute;n se muestra el c&oacute;digo requerido para resolver el inciso(a)</b></p><div><ul><li>C&oacute;digo para la energ&iacute;a:</li></ul></div><pre class="language-matlab">syms <span class="string">n</span>
+</pre><pre class="language-matlab">x=[val_inicial;val_final];
+</pre><pre class="language-matlab">assume(n,<span class="string">'integer'</span>);
+</pre><pre class="language-matlab">f= @(n)
+</pre><pre class="language-matlab">E=0;
+</pre><pre class="language-matlab"><span class="keyword">for</span> i:x
+    E= E+(f(i)).^2;
+<span class="keyword">end</span>
+</pre><pre class="language-matlab">disp(E)
+</pre><p><b>A continuaci&oacute;n se muestra el c&oacute;digo requerido para resolver el inciso (b)</b></p><div><ul><li>C&oacute;digo para la potencia:</li></ul></div><pre class="language-matlab">sysms <span class="string">n</span>
+</pre><pre class="language-matlab">x=[val_inicial;val_final];
+</pre><pre class="language-matlab">assume(n,<span class="string">'integer'</span>);
+</pre><pre class="language-matlab">f= @(n)
+</pre><pre class="language-matlab">P=0;
+</pre><pre class="language-matlab"><span class="keyword">for</span> i:x
+    P= P+1/(length(x)).*(f(i)).^2;
+<span class="keyword">end</span>
+</pre><pre class="language-matlab">disp(P)
+</pre><h2 id="19">Secci&oacute;n 4</h2><p>Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b)</p><p>3.1-1 Find the energy of the signals depicted in Fig. P3.1-1.</p><p>Graficando la se&ntilde;al x[n] de la figura (c)</p><pre class="codeinput">n=[-5:5];
+
+f= @(n) (3.*n).*(-3&lt;=n &amp; n&lt;=3);
+
+stem(n,f(n))
+grid <span class="string">on</span>
+xlabel(<span class="string">'${n}$'</span>,<span class="string">'interpreter'</span>,<span class="string">'latex'</span>)
+ylabel(<span class="string">'$x[n]$'</span>,<span class="string">'interpreter'</span>,<span class="string">'latex'</span>)
+title(<span class="string">'Figura (c)'</span>)
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_12.png" alt=""> <p>Calculando la energ&igrave;a de x[n]:</p><pre class="codeinput">syms <span class="string">n</span>
+
+assume(n,<span class="string">'integer'</span>);
+
+x=[-3:3];
+
+f= @(n) (3.*n);
+
+E=0;
+
+<span class="keyword">for</span> i= x
+    E= E+(f(i)).^2;
+<span class="keyword">end</span>
+
+disp(E)
+</pre><pre class="codeoutput">   252
+
+</pre><p>3.1-2 Find the power of the signals illustrated in Fig. P3.1-2.</p><p>Graficando la se&ntilde;al x[n] de la figura (b) tomando el intervalo [-3,3]</p><pre class="codeinput">n=[-5:5];
+
+f= @(n) n.*(-3&lt;=n &amp; n&lt;=3);
+
+stem(n,f(n),<span class="string">'r'</span>)
+grid <span class="string">on</span>
+xlabel(<span class="string">'${n}$'</span>,<span class="string">'interpreter'</span>,<span class="string">'latex'</span>)
+ylabel(<span class="string">'$x[n]$'</span>,<span class="string">'interpreter'</span>,<span class="string">'latex'</span>)
+title(<span class="string">'Figura (b)'</span>)
+</pre><img vspace="5" hspace="5" src="ASySPrac2KalebVillagomez_13.png" alt=""> <p>Calculando la potencia de x[n]:</p><pre class="codeinput">syms <span class="string">n</span>
+
+assume(n,<span class="string">'integer'</span>);
+
+x=[-3:8];
+
+f= @(n) n.*(-3&lt;=n &amp; n&lt;=3);
+
+P=0;
+
+<span class="keyword">for</span> i= x
+    P= P+1/(length(x)).*(f(i)).^2;
+<span class="keyword">end</span>
+
+disp(P)
+</pre><pre class="codeoutput">    2.3333
+
+</pre><h2 id="24">Seccion 5</h2><p>Se realiz&oacute; la siguiente App. Los detalles de esta se encuentran dentro de ella.</p><p><img vspace="5" hspace="5" src="Aplicacion2.jpg" alt=""> </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 2: Señales en tiempo discreto
+% 
+%% Integrantes
+%
+% * Alejandro Enrrique López Ahumada
+% * Alvaro Catalán Escobar
+% * Carlos Enrrique Mejía López
+% * Kaleb Villagómez Galván
+%
+%% Objetivos
+%
+% * Manipulación básica de MATLAB
+% * Gráficas de señales reales y complejas discretas
+% * Transformación de señales discretas (escalamientos y traslaciones)
+%
+%% Introducción 
+% 
+%% Sección 1
+%
+% Considere la función en tiempo discreto
+% 
+f= @(n) exp(-n/5).*cos(pi*n/5).*(n>=0);
+%%
+n=(-10:10);
+plot(n,f(n));
+%%
+% Pasando la función a tiempo discreto se usa el comando "stem"
+n=(-10:10)';
+stem(n,f(n),'k');
+xlabel('n'); ylabel('f[n]');
+
+%%
+% Si bien la función funciona correctamente para una operación de reducción
+% de muestreo como f[2n]
+stem(n,f(2*n),'k');
+xlabel('n'); ylabel('f[2*n]');
+%%
+% Se modifica la función anónima para que tambien acomode correctamente las
+% operacciónes de muestreo.
+f= @(n) exp(-n/10).*cos(pi*n/10).*(n>=0).*(mod(n,2)==0);
+f(n)
+stem(n,f(n),'k');
+xlabel('n'); ylabel('f[n/2]');
+%
+%% Sección 2
+% Se grafican las siguientes señales a partir de la señal que se muestra a
+% a continuación.
+%
+n= -15:15;
+x= @(n) n .* (heaviside(n+3.5)-heaviside(n-3.5));
+stem(n,x(n),'k');
+xlabel('n'); ylabel('x[n]');
+%%
+% a) x[-n]
+stem(n,x(-n),'k');
+xlabel('n'); ylabel('x[-n]');
+%%
+% b)x[n+6]
+stem(n,x(n+6),'k');
+xlabel('n'); ylabel('x[n+6]');
+%%
+% c) x[n-6]
+stem(n,x(n-6),'k');
+xlabel('n'); ylabel('x[n-6]');
+%%
+% d) x[3n]
+x= @(n) n .* (heaviside(n+3.5)-heaviside(n-3.5)).*(mod(n,3)==0);
+stem(n,x(n),'k');
+xlabel('n'); ylabel('x[3n]');
+%%
+% e) x[n/3]
+x= @(n) n/3 .* (heaviside((n/3)+3.5)-heaviside((n/3)-3.5)).*(mod(n,3)==0);
+stem(n,x(n),'k');
+xlabel('n'); ylabel('x[n/3]');
+%% 
+% f) x[3-n]
+x= @(n) n .* (heaviside(n+3.5)-heaviside(n-3.5));
+stem(n,x(3-n),'k');
+xlabel('n'); ylabel('x[3-n]');
+
+%% Sección 3
+%
+% Suppose a vector x exists in the MATLAB workspace, corresponding to a finite-duration DT signal x[n]
+%
+% (a) Write a MATLAB function that, when passed vector x, computes and returns Ex, the energy of x[n].
+%
+% (b) Write a MATLAB function that, when passed vector x, computes and returns Px, the power of x[n]. Assume that x[n] is
+% periodic and that vector x contains data for an integer number of periods of x[n].
+%%
+% *A continuación se muestra el código requerido para resolver el inciso(a)*
+%
+% * Código para la energía:
+%
+%   syms n 
+%   
+%   x=[val_inicial;val_final];
+% 
+%   assume(n,'integer');
+%
+%   f= @(n) 
+%
+%   E=0;
+%
+%   for i:x
+%       E= E+(f(i)).^2;
+%   end
+%
+%   disp(E)
+%%
+%
+% *A continuación se muestra el código requerido para resolver el inciso
+% (b)*
+%
+% * Código para la potencia:
+%
+%   sysms n
+%
+%   x=[val_inicial;val_final];
+%
+%   assume(n,'integer');
+%
+%   f= @(n)
+%
+%   P=0;
+%
+%   for i:x
+%       P= P+1/(length(x)).*(f(i)).^2;
+%   end
+%
+%   disp(P)
+%% Sección 4
+%
+% Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b)
+%%
+% 3.1-1 Find the energy of the signals depicted in Fig. P3.1-1.
+% 
+% Graficando la señal x[n] de la figura (c)
+
+n=[-5:5];
+
+f= @(n) (3.*n).*(-3<=n & n<=3);
+
+stem(n,f(n))
+grid on
+xlabel('${n}$','interpreter','latex')
+ylabel('$x[n]$','interpreter','latex')
+title('Figura (c)')
+%%
+%
+% Calculando la energìa de x[n]:
+
+syms n
+
+assume(n,'integer');
+
+x=[-3:3];
+
+f= @(n) (3.*n);
+
+E=0;
+
+for i= x
+    E= E+(f(i)).^2;
+end
+
+disp(E)
+%%
+% 3.1-2 Find the power of the signals illustrated in Fig. P3.1-2.
+%
+% Graficando la señal x[n] de la figura (b) tomando el intervalo [-3,3]
+
+n=[-5:5];
+
+f= @(n) n.*(-3<=n & n<=3);
+
+stem(n,f(n),'r')
+grid on
+xlabel('${n}$','interpreter','latex')
+ylabel('$x[n]$','interpreter','latex')
+title('Figura (b)')
+%%
+%
+% Calculando la potencia de x[n]:
+
+syms n
+
+assume(n,'integer');
+
+x=[-3:8];
+
+f= @(n) n.*(-3<=n & n<=3);
+
+P=0;
+
+for i= x
+    P= P+1/(length(x)).*(f(i)).^2;
+end
+
+disp(P)
+
+%% Seccion 5 
+% Se realizó la siguiente App. 
+% Los detalles de esta se encuentran dentro de ella.
+%%
+% 
+% <<Aplicacion2.jpg>>
+% 
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
