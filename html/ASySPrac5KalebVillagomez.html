@@ -1,0 +1,304 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Practica 5 :Series de Fourier en Tiempo Continuo</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-06-20"><meta name="DC.source" content="ASySPrac5KalebVillagomez.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Practica 5 :Series de Fourier en Tiempo Continuo</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Integrantes:</a></li><li><a href="#2">Objetivos</a></li><li><a href="#3">Ejemplo 6.2</a></li><li><a href="#6">Ejemplo 6.4</a></li><li><a href="#15">PR08</a></li><li><a href="#35">PR10</a></li></ul></div><h2 id="1">Integrantes:</h2><p>*Alejandro Enrique Lopez Ahumada</p><p>*Alvaro Catal&aacute;n Escobar</p><p>*Carlos Enrique Mej&iacute;a L&oacute;pez</p><p>*Kaleb Villag&oacute;mez Galv&aacute;n</p><h2 id="2">Objetivos</h2><p>Realizar Graficas de series de Fourier expoenciales y trigonometricas en tiempo continuo</p><p>Manipulacion de instrucciones en MATLAB</p><h2 id="3">Ejemplo 6.2</h2><p>Se tiene la siguiente funcion : 2*t.*(-1/2&lt;t &amp; t&lt;1/2)+ 2*(1-t).*(1/2&lt;=t &amp; t&lt;3/2)</p><p>Calculamos la Serie de Fourier Exponencial Compleja y para eso se utiliza el siguiente codigo para mostrar las graficas correspondientes d0=0.504;</p><pre class="codeinput">dn=@(n) 0.504/(1+4*n*j);
+t0=-0.5;
+tf=1.5;
+f=@(t) 2*t.*(-1/2&lt;t &amp; t&lt;1/2)+ 2*(1-t).*(1/2&lt;=t &amp; t&lt;3/2) ;
+armo=15;
+a=-5;
+b=6;
+<span class="comment">% sfc(t0,tf,dn,d0,f,armo,a,b)</span>
+</pre><p><img vspace="5" hspace="5" src="62EC.png" alt=""> </p><p>Por lo tanto la serie de Fourier Trigonom&eacute;trica Compacta es :</p><p><img src="ASySPrac5KalebVillagomez_eq10955444241653717976.png" alt="$$x(t)=\sum_{n=1}^{\infty}\frac{8}{n^{2}\pi ^{2}}\sin(\frac{n\pi&#xA;}{2})\sin (\pi nt)$$" style="width:207px;height:41px;"></p><h2 id="6">Ejemplo 6.4</h2><p>Se tiene la siguiente funcion :</p><p><img vspace="5" hspace="5" src="64F.PNG" alt=""> </p><p>Calculamos la Serie de Fourier Exponencial Compleja y para eso se utiliza el siguiente codigo para mostrar las graficas correspondientes:</p><pre class="codeinput">d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+p=pi;
+t0=-p;
+tf=p;
+f=@(t) 1*(t&gt;=-p/2&amp;t&lt;=p/2);
+armo=15;
+a=-15;
+b=15;
+<span class="comment">% sfc(t0,tf,dn,d0,f,armo,a,b)</span>
+</pre><p><img vspace="5" hspace="5" src="64EC1.png" alt=""> </p><p>Por lo tanto la serie de Fourier Exponencial Compleja es :</p><p><img src="ASySPrac5KalebVillagomez_eq10093369959153247688.png" alt="$${S_f{(t)}}=\sum_{n=-\infty }^{\infty }(\frac{\sin (\frac{\pi}{2}n)}{\pi  n})e^{njt}+\frac{1}{2} \ con \ n \neq 0$" style="width:265px;height:41px;"></p><p>Por lo tanto la serie de Fourier Trigonom&eacute;trica compacta es:</p><p><img src="ASySPrac5KalebVillagomez_eq09785861937473893128.png" alt="$$x(t)=\frac{1}{2}+\sum_{n=1}^{\infty}(\frac{2}{\pi n}\sin (\frac{\pi&#xA;n}{2})\cos (nt+\pi ))$$" style="width:253px;height:41px;"></p><h2 id="15">PR08</h2><p>Ejemplo 3.1</p><p>Se tiene la siguiente funcion :</p><p><img src="ASySPrac5KalebVillagomez_eq15455366266047501362.png" alt="$$f(t)= t$$" style="width:50px;height:15px;"></p><p><img src="ASySPrac5KalebVillagomez_eq10188631049756731672.png" alt="$$-1<t<1$$" style="width:69px;height:11px;"></p><p>Calculamos la Serie de Fourier Exponencial Compleja y para eso se utiliza el siguiente codigo para mostrar las graficas correspondientes:</p><pre class="codeinput">d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=-1;
+tf=1;
+f=@(t) t;
+armo=15;
+a=-5;
+b=6;
+<span class="comment">% sfc(t0,tf,dn,d0,f,armo,a,b)</span>
+</pre><p><img vspace="5" hspace="5" src="31EC.png" alt=""> </p><p>Por lo tanto la Serie de Fourier Exponencial Compleja es:</p><p><img src="ASySPrac5KalebVillagomez_eq16744531748515447890.png" alt="$$S_{f}(t)=\sum_{-\infty}^{\infty}\frac{-\pi jne^{-\pi jn}e^{-jn\pi}-\pi jne^{\pi  jn}+e^{\pi jn}}{2n^{2}\pi ^{2}}(e^{\pi njt})$$" style="width:329px;height:41px;"></p><p>Serie de Fourier Trigonometrica Compacta</p><p><img src="ASySPrac5KalebVillagomez_eq10695287716660768941.png" alt="$$S_{f}(t)=\sum_{n=1}^{\infty}\frac{2\cos(\pi nt)}{n\pi}\cos(\pi nt)$$" style="width:198px;height:41px;"></p><p>Ejemplo 3.2</p><p>Se tiene la siguiente funcion:</p><p><img src="ASySPrac5KalebVillagomez_eq15523683934880442912.png" alt="$$f(t)= t^2$$" style="width:54px;height:18px;"></p><p><img src="ASySPrac5KalebVillagomez_eq02539753483501831496.png" alt="$$-2<t<2$$" style="width:69px;height:11px;"></p><p>Calculamos la Serie de Fourier Exponencial Compleja y para eso se utiliza el siguiente codigo para mostrar las graficas correspondientes:</p><pre class="codeinput">d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=-2;
+tf=2;
+f=@(t) t.^2;
+armo=15;
+a=-10;
+b=10;
+<span class="comment">% sfc(t0,tf,dn,d0,f,armo,a,b)</span>
+</pre><p><img vspace="5" hspace="5" src="32EC.png" alt=""> </p><p>Por lo tantp la Serie de Fourier Trigonomtrica compacta es :</p><p><img src="ASySPrac5KalebVillagomez_eq13752644221249038278.png" alt="$$S_{f}(t)=\sum_{-\infty}^{\infty}\frac{4}{3}+\sum_{n=1}^{\infty}\frac{32\cos(\pi n)}{2\pi ^{2}n^{2}}\cos(n\frac{\pi }{2}t+\pi )$$" style="width:282px;height:41px;"></p><h2 id="35">PR10</h2><p>Se tiene la siguiente funcion :</p><p><img src="ASySPrac5KalebVillagomez_eq13666659454724284981.png" alt="$$f(t)=ae^{-a\left | t \right |}$$" style="width:81px;height:18px;"></p><p>para a=2 , se tiene lo siguiente :</p><p><img src="ASySPrac5KalebVillagomez_eq17227428324941758640.png" alt="$$f(t)=2e^{-2\left | t \right |}$$" style="width:80px;height:18px;"></p><p>Ahora calularemos la Serie de Fourier esponencial compleja de  <img src="ASySPrac5KalebVillagomez_eq09478123530129115431.png" alt="$f(t)$" style="width:24px;height:15px;"> y para eso se utiliza el siguiente codigo para mostrar las graficas correspondientes</p><pre class="codeinput">d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=-2;
+tf=2;
+f=@(t) 2*exp(-2*abs(t));
+armo=15;
+a=-10;
+b=10;
+<span class="comment">% sfc(t0,tf,dn,d0,f,armo,a,b)</span>
+</pre><p><img vspace="5" hspace="5" src="PR10EC.png" alt=""> </p><p>Por  lo tanto , la serie de fourier Exponencial compleja es:</p><p><img src="ASySPrac5KalebVillagomez_eq03075178404130199773.png" alt="$$S_{f}(t)=\sum_{-\infty}^{\infty}\frac{a^{2}(1-e^{-a}\cos (n\pi ))}{a^{2}+n^{2}\pi ^{2}}(e^{jn\pi t})$$" style="width:240px;height:41px;"></p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Practica 5 :Series de Fourier en Tiempo Continuo 
+%
+%% Integrantes: 
+% 
+% *Alejandro Enrique Lopez Ahumada 
+%
+% *Alvaro Catalán Escobar
+%
+% *Carlos Enrique Mejía López
+%
+% *Kaleb Villagómez Galván
+% 
+%% Objetivos 
+% Realizar Graficas de series de Fourier expoenciales y trigonometricas en
+% tiempo continuo 
+%
+% Manipulacion de instrucciones en MATLAB 
+%
+%% Ejemplo 6.2 
+% Se tiene la siguiente funcion : 
+% 2*t.*(-1/2<t & t<1/2)+ 2*(1-t).*(1/2<=t & t<3/2) 
+%
+% Calculamos la Serie de Fourier Exponencial Compleja y para eso se utiliza
+% el siguiente codigo para mostrar las graficas correspondientes 
+% d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=-0.5; 
+tf=1.5;
+f=@(t) 2*t.*(-1/2<t & t<1/2)+ 2*(1-t).*(1/2<=t & t<3/2) ;
+armo=15;
+a=-5;
+b=6;
+% sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+%
+%
+% 
+% <<62EC.png>>
+% 
+%%
+% Por lo tanto la serie de Fourier Trigonométrica Compacta es :
+%
+% $$x(t)=\sum_{n=1}^{\infty}\frac{8}{n^{2}\pi ^{2}}\sin(\frac{n\pi
+% }{2})\sin (\pi nt)$$ 
+%% Ejemplo 6.4
+% Se tiene la siguiente funcion : 
+%  
+%%
+% <<64F.PNG>>
+%
+%%
+% Calculamos la Serie de Fourier Exponencial Compleja y para eso se utiliza
+% el siguiente codigo para mostrar las graficas correspondientes: 
+%%
+d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+p=pi;
+t0=-p;
+tf=p;
+f=@(t) 1*(t>=-p/2&t<=p/2);
+armo=15;
+a=-15;
+b=15;
+% sfc(t0,tf,dn,d0,f,armo,a,b)
+
+%%
+% 
+% <<64EC1.png>> 
+% 
+%%
+% Por lo tanto la serie de Fourier Exponencial Compleja es :
+%%
+% $${S_f{(t)}}=\sum_{n=-\infty }^{\infty }(\frac{\sin (\frac{\pi}{2}n)}{\pi
+%  n})e^{njt}+\frac{1}{2} \ con \ n \neq 0$
+% 
+%%
+% Por lo tanto la serie de Fourier Trigonométrica compacta es:
+%%
+% $$x(t)=\frac{1}{2}+\sum_{n=1}^{\infty}(\frac{2}{\pi n}\sin (\frac{\pi
+% n}{2})\cos (nt+\pi ))$$
+%
+
+%% PR08 
+% Ejemplo 3.1
+%%
+% Se tiene la siguiente funcion :
+%%
+% $$f(t)= t$$
+%%
+% $$-1<t<1$$
+%%
+% Calculamos la Serie de Fourier Exponencial Compleja y para eso se utiliza
+% el siguiente codigo para mostrar las graficas correspondientes:
+%%
+d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=-1; 
+tf=1;
+f=@(t) t;
+armo=15;
+a=-5;
+b=6;
+% sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+% 
+% <<31EC.png>>
+% 
+%%
+% Por lo tanto la Serie de Fourier Exponencial Compleja es:
+%%
+% $$S_{f}(t)=\sum_{-\infty}^{\infty}\frac{-\pi jne^{-\pi jn}e^{-jn\pi}-\pi jne^{\pi  jn}+e^{\pi jn}}{2n^{2}\pi ^{2}}(e^{\pi njt})$$
+%
+%%
+% Serie de Fourier Trigonometrica Compacta
+%
+%%
+% $$S_{f}(t)=\sum_{n=1}^{\infty}\frac{2\cos(\pi nt)}{n\pi}\cos(\pi nt)$$
+%%
+% Ejemplo 3.2
+%
+%%
+% Se tiene la siguiente funcion:
+%
+%%
+% $$f(t)= t^2$$
+%
+%%
+% $$-2<t<2$$
+%
+%%
+% Calculamos la Serie de Fourier Exponencial Compleja y para eso se utiliza
+% el siguiente codigo para mostrar las graficas correspondientes:
+%%
+d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=-2;
+tf=2;
+f=@(t) t.^2;
+armo=15;
+a=-10;
+b=10;
+% sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+% 
+% <<32EC.png>>
+% 
+%%
+% Por lo tantp la Serie de Fourier Trigonomtrica compacta es :
+%%
+% $$S_{f}(t)=\sum_{-\infty}^{\infty}\frac{4}{3}+\sum_{n=1}^{\infty}\frac{32\cos(\pi n)}{2\pi ^{2}n^{2}}\cos(n\frac{\pi }{2}t+\pi )$$
+%
+%
+%% PR10
+%%  
+% Se tiene la siguiente funcion :
+%%
+% $$f(t)=ae^{-a\left | t \right |}$$
+%%
+% para a=2 , se tiene lo siguiente :
+%%
+% $$f(t)=2e^{-2\left | t \right |}$$
+%
+% Ahora calularemos la Serie de Fourier esponencial compleja de  $f(t)$ 
+% y para eso se utiliza el siguiente codigo para mostrar las graficas
+% correspondientes 
+%%
+d0=0.504;
+dn=@(n) 0.504/(1+4*n*j);
+t0=-2;
+tf=2;
+f=@(t) 2*exp(-2*abs(t));
+armo=15;
+a=-10;
+b=10;
+% sfc(t0,tf,dn,d0,f,armo,a,b)
+%%
+% 
+% <<PR10EC.png>>
+% 
+%%
+%
+% Por  lo tanto , la serie de fourier Exponencial compleja es:
+%
+%%
+% $$S_{f}(t)=\sum_{-\infty}^{\infty}\frac{a^{2}(1-e^{-a}\cos (n\pi ))}{a^{2}+n^{2}\pi ^{2}}(e^{jn\pi t})$$
+%
+%
+##### SOURCE END #####
+--></body></html>
